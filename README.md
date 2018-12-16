@@ -17,7 +17,7 @@ Instalar Ionic Cordova
 
 ```
 npm install -g ionic cordova
-
+```
 Crear una App de Ionic
 
 ```
@@ -29,8 +29,6 @@ Lanzar la App
 
 ```
 $ cd helloWorld
-```
-```
 $ ionic serve
 ```
 
@@ -38,3 +36,4 @@ $ ionic serve
 ### Paquetes instalados
 
 [x] Openlayers 5.3.0
+[ ] @Types/ol 
