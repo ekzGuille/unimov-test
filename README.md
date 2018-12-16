@@ -2,12 +2,21 @@
 test de app ionic cordova con openlayers
 
 # Instalar
-Instalar Ionic Cordova
 [Link oficial](https://ionicframework.com/docs/intro/installation/)
+
+
+## Instalar ionic normal
+
+Instalar Ionic 
+
+```
+npm install -g ionic
+```
+
+Instalar Ionic Cordova
 
 ```
 npm install -g ionic cordova
-```
 
 Crear una App de Ionic
 
