@@ -29,5 +29,12 @@ Lanzar la App
 
 ```
 $ cd helloWorld
+```
+```
 $ ionic serve
 ```
+
+
+### Paquetes instalados
+
+[x] Openlayers 5.3.0
