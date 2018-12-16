@@ -1,31 +1,31 @@
 # unimov-test
-test de app ionic cordova con openlayers
+Test de App *unimov* on **Ionic** y **Openlayers**
 
 # Instalar
 [Link oficial](https://ionicframework.com/docs/intro/installation/)
 
 
-## Instalar ionic normal
+## Instalar ionic normal 
 
-Instalar Ionic 
+* Instalar Ionic 
 
 ```
 npm install -g ionic
 ```
 
-Instalar Ionic Cordova
+* ~~Instalar Ionic Cordova~~
 
 ```
 npm install -g ionic cordova
 ```
-Crear una App de Ionic
+* Crear una App de Ionic
 
 ```
 $ ionic start helloWorld blank
 ```
 
 
-Lanzar la App
+* Lanzar la App
 
 ```
 $ cd helloWorld
@@ -35,5 +35,4 @@ $ ionic serve
 
 ### Paquetes instalados
 
-[x] Openlayers 5.3.0
-[ ] @Types/ol 
+* Openlayers 5.3.0
