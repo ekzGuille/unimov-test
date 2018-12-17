@@ -9,7 +9,7 @@
 ##
 ## Copyright: Alberto SubÃ­as y Guillermo SesÃ©
 
-# Falta Bizi Zaragoza, Koko, Voi, Tier
+# Falta Bizi Zaragoza, Koko
 
 import requests, pickle
 from urllib.request import urlopen #python3
@@ -164,8 +164,8 @@ if __name__ == '__main__':
 	## Modelo datos coordenadas
 	coordsData = {'centerCoords': [lat, lon], 'userCoords': [lat, lon], 'mapBounds': ['41.6582','-0.8584', '41.6462', '-0.9407']}
 	print(getMuvings(coordsData))
-	#print(getLimes(coordsData))
-	#print(getMobikes(coordsData))
+	print(getLimes(coordsData))
+	#print(getMobikes(coordsData)) No funciona como debe
 	print(getTiers(coordsData))
 	print(getVois(coordsData))
 
