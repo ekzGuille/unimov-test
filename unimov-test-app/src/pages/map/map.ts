@@ -1,5 +1,12 @@
+
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Geolocation } from '@ionic-native/geolocation';
+import { ToastController } from 'ionic-angular';
+import { HttpClient } from '@angular/common/http';
+import { TransportServiceProvider } from '../../providers/transport-service/transport-service';
+
+import { MapCal } from './mapCal'
 
 import Feature from 'ol/Feature';
 import Map from 'ol/Map';
@@ -9,102 +16,81 @@ import View from 'ol/View';
 import Point from 'ol/geom/Point';
 import Tile from 'ol/layer/Tile';
 import VectorLayer from 'ol/layer/Vector';
-import Draw from 'ol/interaction/Draw';
 import VectorSource from 'ol/source/Vector';
 import Icon from 'ol/style/Icon';
 import Style from 'ol/style/Style';
 
 import { transform } from 'ol/proj';
+import { MuvingResponse } from '../../models/muving/muvingResponse';
+import { TierResponse } from '../../models/tier/tierResponse';
+import { VoiResponse } from '../../models/voi/voiResponse';
+import { MuvingObject } from '../../models/muving/muvingObject';
+import { TierObject } from '../../models/tier/tierObject';
+import { VoiObject } from '../../models/voi/voiObject';
+import { Location } from '../../models/location'
 
-
+@IonicPage()
 @Component({
   selector: 'page-map',
-  templateUrl: 'map.html'
+  templateUrl: 'map.html',
 })
 export class MapPage {
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    public http: HttpClient,
+    private geolocation: Geolocation,
+    public toastCtrl: ToastController,
+    public transportServiceProvider: TransportServiceProvider) {
   }
 
-  iconFeature: Feature;
-  iconStyle: Style;
+  muvingResposne: MuvingResponse;
+  arrayMuving: MuvingObject[];
+  tierResponse: TierResponse;
+  arrayTier: TierObject[];
+  voiResponse: VoiResponse;
+  arrayVoi: VoiObject[];
+
   map: Map;
-  mapSource: XYZ;
   overlay: Overlay;
   view: View;
   point: Point;
   tileLayer: Tile;
-  vectorLayerMap: VectorLayer;
-  vectorSourceMap: VectorSource;
-  dibujoUsuario: Draw;
-  layerZonas: VectorLayer;
-  layerCasa: VectorLayer;
-  layerCirculo: VectorLayer;
-  layerAreaSeleccionada: VectorLayer;
-  vectorDraw: VectorLayer;
-  vectorSourceDraw: VectorSource;
+  vectorLayerRestaurantes: VectorLayer;
+
+  calculosMapa: MapCal;
 
   distancia: number = 0;
-  locCasa: number[][] = [];
-  ubicacion: number[][] = [];
-  centro: number[][] = [];
+  ubicacion: number[] = [];
+  locRestaurante: number[] = [];
+  centroMapa: number[] = [];
 
-  features: Feature[] = [];
+  imagenRGenerica: string;
+  iconoRGenerico: string;
 
-  zonaNumero: string[];
-  coordenadasNumZonasZaragoza: number[][];
-  coordenadasNumZonasTeruel: number[][];
+  featuresRestaurante: Feature[] = [];
 
-  isDibujoActivo: boolean;
-  isMosrZonas: boolean;
-  isCasaActivo: boolean;
+  zoom: number;
+
+  urlWebZgz: string;
 
   iconoGMaps: string;
   iconoUbicacion: string;
+  iconoAnimadoUbicacion: string;
   iconoCasa: string;
 
   ngOnInit() {
-    this.locCasa = transform([-0.877520, 41.665714], 'EPSG:4326', 'EPSG:3857');
-    this.ubicacion = this.locCasa;
-    this.centro = this.ubicacion;
+
+    this.calculosMapa = new MapCal();
+
+    this.zoom = 13;
+    //Default pointer position
+    this.centroMapa = transform([-0.889159, 41.648715], 'EPSG:4326', 'EPSG:3857')
+
     this.iconoGMaps = 'http://www.clker.com/cliparts/J/U/K/G/l/9/google-maps-marker-for-residencelamontagne.svg.hi.png';
     this.iconoUbicacion = 'http://www.inside360.fr/wp-content/uploads/2014/10/home_address-icon.png';
+    this.iconoAnimadoUbicacion = 'http://www.insoldelbajio.com/wp-content/uploads/2014/05/location-1.gif';
     this.iconoCasa = 'https://cdn1.iconfinder.com/data/icons/real-estate-set-1-3/64/real-estate_1-10-512.png';
-
-    this.isDibujoActivo = false;
-    this.isMosrZonas = false;
-    this.isCasaActivo = false;
-
-    this.vectorSourceDraw = new VectorSource({
-      wrapX: false
-    });
-    this.vectorDraw = new VectorLayer({
-      source: this.vectorSourceDraw
-    })
-
-    this.iconFeature = new Feature({
-      geometry: new Point(this.ubicacion)
-    });
-
-    this.iconStyle = new Style({
-      image: new Icon({
-        anchor: [0.5, 0.5],
-        anchorXUnits: 'fraction',
-        anchorYUnits: 'fraction',
-        scale: 0.05,
-        src: this.iconoGMaps
-      })
-    });
-
-    this.iconFeature.setStyle(this.iconStyle);
-
-    this.vectorSourceMap = new VectorSource({
-      features: [this.iconFeature]
-    });
-
-    this.vectorLayerMap = new VectorLayer({
-      source: this.vectorSourceMap
-    });
 
     this.tileLayer = new Tile({
       source: new XYZ({
@@ -114,42 +100,217 @@ export class MapPage {
 
     this.map = new Map({
       target: 'map',
-      layers: [this.tileLayer, this.vectorLayerMap],
+      layers: [this.tileLayer],
       view: new View({
-        center: this.centro,
-        zoom: 13
+        center: this.centroMapa,
+        minZoom: 10,
+        control: null,
+        zoom: this.zoom
       })
     });
   }
 
-  dibujarPunto(coords: number[]) {
+  addMovingMapa(): void {
+    let view: View = this.map.getView();
+    this.zoom = 13;
+    view.setZoom(this.zoom);
+    view.setCenter(this.centroMapa);
 
-    let longitud = coords[0];
-    let latitud = coords[1];
+    this.vectorLayerRestaurantes = new VectorLayer({
+      source: new VectorSource({
+        features: this.featuresRestaurante
+      })
+    });
 
-    let iconStyle = new Style({
+    let container = document.getElementById('popup');
+    let closer = document.getElementById('popup-closer');
+
+    this.overlay = new Overlay({
+      element: container,
+      autoPan: true,
+      autoPanAnimation: {
+        duration: 250
+      }
+    });
+
+    closer.onclick = () => {
+      this.zoom = 14;
+      view.animate({
+        zoom: this.zoom,
+        duration: 500
+      });
+      this.overlay.setPosition(undefined);
+      closer.blur();
+      return false;
+    };
+
+    this.map.addOverlay(this.overlay);
+
+    this.map.on('click', (evt: any) => {
+      let restaurante = this.map.forEachFeatureAtPixel(evt.pixel, (feature: any) => {
+        return feature;
+      });
+
+      if (restaurante && restaurante.getGeometry().getType() === "Point" && restaurante.get('type') == 'restaurante') {
+        let coordinates = restaurante.getGeometry().getCoordinates();
+        this.overlay.setPosition(coordinates);
+        // this.infoRestaurante = restaurante.get('infoRestaurante');
+        // let coords = transform(this.infoRestaurante.geometry.coordinates, 'EPSG:4326', 'EPSG:3857');
+        // let newCoords = [coords[0] + 200, coords[1] + 100];
+        this.zoom = 16;
+        // view.animate({
+        //   center: newCoords,
+        //   zoom: this.zoom,
+        //   duration: 500
+        // });
+        // view.setCenter(newCoords);
+        // view.setZoom(this.zoom);
+      }
+    });
+
+    this.map.addLayer(this.vectorLayerRestaurantes);
+  }
+
+  cargarMuving(coordsRectangle: number[][]): void {
+    this.arrayMuving = [];
+    this.featuresRestaurante = [];
+
+    if (this.vectorLayerRestaurantes !== undefined) {
+      this.vectorLayerRestaurantes.getSources().clear();
+    }
+
+    this.transportServiceProvider.getMuving(coordsRectangle)
+      .subscribe(res => {
+        if(res.responseCode === "0"){
+          res.object.forEach(muving => {
+            console.log(muving);
+          });
+        }
+      });
+
+    // this.restaurantInfoProviderReq.getNRestaurant(amount)
+    //   .subscribe(res => {
+    //     res.result.forEach(restaurante => {
+    //       restaurante.image = restaurante.image === undefined ? this.imagenRGenerica : this.urlWebZgz + restaurante.image;
+    //       restaurante.logo = restaurante.logo === undefined ? this.iconoRGenerico : this.urlWebZgz + restaurante.logo;
+    //       this.arrRestaurantes.push(restaurante);
+    //     })
+
+    //     this.arrRestaurantes.forEach((restaurante: Restaurant) => {
+    //       this.featuresRestaurante.push(this.dibujarMuving(restaurante));
+    //     });
+    //     this.addMovingMapa();
+    //   });
+  }
+
+  dibujarMuving(muvingObject: MuvingObject): Feature {
+    // if (restaurante.geometry) {
+    //   this.locRestaurante = transform(restaurante.geometry.coordinates, 'EPSG:4326', 'EPSG:3857');
+    // } else {
+    //   return new Feature();
+    // }
+
+    // let restaurantIcon = new Style({
+    //   image: new Icon({
+    //     anchor: [0.5, 0.7],
+    //     anchorXUnits: 'fraction',
+    //     anchorYUnits: 'fraction',
+    //     scale: 0.3,
+    //     src: restaurante.logo
+    //   })
+    // });
+
+    // let feature = new Feature({
+    //   geometry: new Point(this.locRestaurante),
+    //   type: 'restaurante',
+    //   infoRestaurante: restaurante
+    // });
+    // feature.setStyle(restaurantIcon);
+
+    // return feature;
+
+  }
+
+  dibujarUbicacion(coords: number[]) {
+
+    let view: View = this.map.getView();
+    this.zoom = 18;
+    view.setZoom(this.zoom);
+    view.setCenter(coords);
+
+    let estiloPointer = new Style({
       image: new Icon({
         anchor: [0.5, 0.7],
         anchorXUnits: 'fraction',
         anchorYUnits: 'fraction',
         scale: 0.05,
-        src: this.iconoCasa
+        src: this.iconoGMaps
       })
     });
 
-    let iconFeature = new Feature({
-      geometry: new Point(transform([longitud, latitud], 'EPSG:4326', 'EPSG:3857')),
+    let feature = new Feature({
+      geometry: new Point(coords)
     });
 
-    let vectorPoint = new VectorLayer({
+    let vectorLayer = new VectorLayer({
       source: new VectorSource({
-        features: [iconFeature]
+        features: [feature]
       })
     });
 
+    feature.setStyle(estiloPointer);
+    this.map.addLayer(vectorLayer);
+  }
 
-    iconFeature.setStyle(iconStyle);
-    this.map.addLayer(vectorPoint);
+  actualizarMapa(): void {
+    if (this.ubicacion.length > 0) {
+      this.ubicacion = transform(this.ubicacion, 'EPSG:4326', 'EPSG:3857');
+      this.dibujarUbicacion(this.ubicacion);
+
+      let view = this.map.getView();
+
+      if (this.locRestaurante.length > 0) {
+        view.setCenter(this.calculosMapa.midCoords(this.ubicacion, this.locRestaurante));
+        let distancia = this.cacularDistancia(this.ubicacion, this.locRestaurante);
+        this.zoom = this.calculosMapa.mapping(distancia, 0, 10, 16, 1);
+      } else {
+        this.zoom = 16;
+      }
+      view.setZoom(this.zoom);
+    }
+  }
+
+  localizarUsuario(): void {
+    if (this.ubicacion.length === 0) {
+      this.mostrarToast();
+    }
+    this.geolocation.getCurrentPosition().then((res) => {
+      this.ubicacion = [res.coords.longitude, res.coords.latitude];
+      this.actualizarMapa();
+    }).catch((error) => {
+      //Localizar por IP
+      this.http.get<Location>('https://ipapi.co/json')
+        .subscribe(res => {
+          this.ubicacion = [res.longitude, res.latitude];
+          this.actualizarMapa();
+        });
+    });
+  }
+
+  mostrarToast(): void {
+    const toast = this.toastCtrl.create({
+      message: 'Obteniendo ubicación',
+      duration: 1500,
+      position: 'top'
+    });
+    toast.present();
+  }
+
+  cacularDistancia(coords1: number[], coords2: number[]): number {
+    coords1 = transform(coords1, 'EPSG:3857', 'EPSG:4326');
+    coords2 = transform(coords2, 'EPSG:3857', 'EPSG:4326');
+    return this.calculosMapa.distance2Points(coords1, coords2);
   }
 
 }
+

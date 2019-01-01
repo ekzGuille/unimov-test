@@ -51,9 +51,9 @@ $ ionic serve
 
 ## Servicios soportados:
 
-* [x] Muving
-* [ ] Koko
-* [x] Lime
-* [x] Mobike
-* [x] Tier
-* [x] VOI
+* [x] Muving (No requiere autentificación de usuario)
+* [ ] Koko (AWS Cognito)
+* [ ] Lime (Requiere autentificación por nº teléfono)
+* [ ] Mobike (url de la API cambiado, no se obtiene respuesta del servidor)
+* [x] Tier (No requiere autentificación de usuario)
+* [x] VOI (No requiere autentificación de usuario)

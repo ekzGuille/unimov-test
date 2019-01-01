@@ -7,7 +7,24 @@
 </ion-header>
 
 <ion-content>
-<!-- <ion-content padding> -->
-<div id="map" class="map">
-</div>
+  <!-- <ion-content padding> -->
+  <div id="map" class="map"></div>
+  <div id="popup" class="ol-popup">
+    <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+    <div id="popup-content">
+      <p class="titulo">
+      </p>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-12>
+            <p>
+            </p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+  <button round class="btnLocalizar" (click)="localizarUsuario()">
+    <ion-icon name="locate"></ion-icon>
+  </button>
 </ion-content>
