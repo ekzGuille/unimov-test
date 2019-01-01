@@ -79,6 +79,17 @@ export class MapPage {
   iconoAnimadoUbicacion: string;
   iconoCasa: string;
 
+  iconoKoko: string;
+  iconoLime1: string;
+  iconoLime2: string;
+  iconoLime3: string;
+  iconoMobike1: string;
+  iconoMobike2: string;
+  iconoMuving1: string;
+  iconoMuving2: string;
+  iconoVoi: string;
+  iconoTier: string;
+
   ngOnInit() {
 
     this.calculosMapa = new MapCal();
@@ -87,10 +98,24 @@ export class MapPage {
     //Default pointer position
     this.centroMapa = transform([-0.889159, 41.648715], 'EPSG:4326', 'EPSG:3857')
 
+    //Default icons
     this.iconoGMaps = 'http://www.clker.com/cliparts/J/U/K/G/l/9/google-maps-marker-for-residencelamontagne.svg.hi.png';
     this.iconoUbicacion = 'http://www.inside360.fr/wp-content/uploads/2014/10/home_address-icon.png';
     this.iconoAnimadoUbicacion = 'http://www.insoldelbajio.com/wp-content/uploads/2014/05/location-1.gif';
     this.iconoCasa = 'https://cdn1.iconfinder.com/data/icons/real-estate-set-1-3/64/real-estate_1-10-512.png';
+
+    //Services icons
+    this.iconoKoko = 'https://i.imgur.com/3RWKl3T.png';
+    this.iconoLime1 = 'https://i.imgur.com/JwxvwNB.png';
+    this.iconoLime2 = 'https://i.imgur.com/i52ia57.png';
+    this.iconoLime3 = 'https://i.imgur.com/QiLhsNm.png';
+    this.iconoMobike1 = 'https://i.imgur.com/M38oXRm.png';
+    this.iconoMobike2 = 'https://i.imgur.com/G0DCXFS.png';
+    this.iconoMuving1 = 'https://i.imgur.com/CyXXWjI.png';
+    this.iconoMuving2 = 'https://i.imgur.com/c0TDKRc.png';
+    this.iconoVoi = 'https://i.imgur.com/IiEd9iB.png';
+    this.iconoTier = 'https://i.imgur.com/PeQHAcq.png';
+
 
     this.tileLayer = new Tile({
       source: new XYZ({
@@ -181,7 +206,7 @@ export class MapPage {
 
     this.transportServiceProvider.getMuving(coordsRectangle)
       .subscribe(res => {
-        if(res.responseCode === "0"){
+        if (res.responseCode === "0") {
           res.object.forEach(muving => {
             console.log(muving);
           });
