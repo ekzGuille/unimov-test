@@ -57,3 +57,5 @@ $ ionic serve
 * [ ] Mobike (url de la API cambiado, no se obtiene respuesta del servidor)
 * [x] Tier (No requiere autentificación de usuario)
 * [x] VOI (No requiere autentificación de usuario)
+* [ ] UFO (Pendiente de buscar info sobre la API)
+* [ ] ERG - Electric Renting Group - Empresa de bicicletas eléctricas de Zaragoza (Pendiente de buscar info sobre la API)
