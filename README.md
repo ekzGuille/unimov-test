@@ -62,5 +62,5 @@ $ ionic serve
 
 
 ### Enlaces de interés
-*[Wobike](https://github.com/ubahnverleih/WoBike)*
-*[Multicycles](https://github.com/PierrickP/multicycles)*
+* *[Wobike](https://github.com/ubahnverleih/WoBike)*
+* *[Multicycles](https://github.com/PierrickP/multicycles)*
