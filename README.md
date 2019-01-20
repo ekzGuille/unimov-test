@@ -54,7 +54,7 @@ $ ionic serve
 * [x] Muving (No requiere autentificación de usuario)
 * [ ] Koko (AWS Cognito)
 * [ ] Lime (Requiere autentificación por nº teléfono)
-* [ ] Mobike (url de la API cambiado, no se obtiene respuesta del servidor)
+* [x] Mobike (No requiere autentificación de usuario)
 * [x] Tier (No requiere autentificación de usuario)
 * [x] VOI (No requiere autentificación de usuario)
 * [ ] UFO (Pendiente de buscar info sobre la API)
