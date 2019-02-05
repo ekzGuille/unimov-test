@@ -8,11 +8,11 @@ import { MobikeResponse } from '../../models/mobike/mobikeResponse';
 
 @Injectable()
 export class TransportServiceProvider {
-  private muving_url = 'https://nube000.muving.com/RestAPI/RestServices/vehicles/in_rectangle';
+  private MUVING_URL = 'https://nube000.muving.com/RestAPI/RestServices/vehicles/in_rectangle';
   // private lime_url = 'https://web-production.lime.bike/api/rider';
-  private mobike_api = 'http://app.mobike.com/api/nearby/v4/nearbyBikeInfo';
-  private tier_url = 'https://tier.frontend.fleetbird.eu/api/prod/v1.06/map/cars';
-  private voi_url = 'https://api.voiapp.io/v1/vehicle/status/ready';
+  private MOBIKE_API = 'http://app.mobike.com/api/nearby/v4/nearbyBikeInfo';
+  private TIER_URL = 'https://tier.frontend.fleetbird.eu/api/prod/v1.06/map/cars';
+  private VOI_URL = 'https://api.voiapp.io/v1/vehicle/status/ready';
 
   constructor(public http: HttpClient) { }
 
@@ -23,12 +23,12 @@ export class TransportServiceProvider {
     const lon2 = coordsRectangle[1][1];
 
     const params = `?lat1=${lat1}&lon1=${lon1}&lat2=${lat2}&lon2=${lon2}`;
-    return this.http.get<MuvingResponse>(this.muving_url + params);
+    return this.http.get<MuvingResponse>(this.MUVING_URL + params);
   }
 
   getMobike(coordsLocation: number[]): Observable<MobikeResponse> {
-    let lat = coordsLocation[0];
-    let lon = coordsLocation[1];
+    let lat = coordsLocation[1];
+    let lon = coordsLocation[0];
 
     const body = {
       latitude : lat,
@@ -37,12 +37,12 @@ export class TransportServiceProvider {
     const options = {
       headers: new HttpHeaders({
         "platform": "1",
-        "Content-Type": "application/x-www-form-urlencoded",
-        "User-Agent": "Mozilla/63.0"
+        // "Content-Type": "application/x-www-form-urlencoded",
+        // "User-Agent": "Mozilla/63.0",
+        "Access-Control-Allow-Origin" : "*"
       })
     };
-
-    return this.http.post<MobikeResponse>(this.mobike_api,body,options);
+    return this.http.post<MobikeResponse>(this.MOBIKE_API,body,options);
 
   }
 
@@ -53,7 +53,7 @@ export class TransportServiceProvider {
     const lon2 = coordsRectangle[1][1];
 
     const params = `?lat1=${lat1}&lon1=${lon1}&lat2=${lat2}&lon2=${lon2}`;
-    return this.http.get<TierResponse>(this.tier_url + params);
+    return this.http.get<TierResponse>(this.TIER_URL + params);
   }
 
   getVoi(coordsLocation: number[]): Observable<VoiResponse> {
@@ -61,7 +61,7 @@ export class TransportServiceProvider {
     let lon = coordsLocation[1];
 
     const params = `?la=${lat}&lo=${lon}`;
-    return this.http.get<VoiResponse>(this.voi_url + params);
+    return this.http.get<VoiResponse>(this.VOI_URL + params);
   }
 
 }
