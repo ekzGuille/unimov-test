@@ -106,10 +106,10 @@ export class MapPage {
   ubicacionLatLon: number[];
 
   ngOnInit() {
-    this.selMobike = true;
+    this.selMobike = false;
     this.selMuving = false;
     this.selTier = false;
-    this.selVoi = false;
+    this.selVoi = true;
 
     this.mapUtil = new MapCal();
 
@@ -173,14 +173,28 @@ export class MapPage {
   //Servicios
 
   getMobike(ubicacion: number[]): void {
-    this.transportServiceProvider.getMobike(ubicacion).subscribe(res => console.log(res));
+    this.transportServiceProvider
+      .getMobike(ubicacion)
+      .subscribe(res => console.log(res));
   }
 
-  getMuving(): void {}
+  getMuving(coordenadasRec: number[][]): void {
+    this.transportServiceProvider
+      .getMuving(coordenadasRec)
+      .subscribe(res => console.log(res));
+  }
 
-  getTier(): void {}
+  getTier(coordenadasRec: number[][]): void {
+    this.transportServiceProvider
+      .getTier(coordenadasRec)
+      .subscribe(res => console.log(res));
+  }
 
-  getVoi(): void {}
+  getVoi(ubicacion: number[]): void {
+    this.transportServiceProvider
+      .getVoi(ubicacion)
+      .subscribe(res => console.log(res));
+  }
 
   //Coordenadas de la vista actual
   //https://gis.stackexchange.com/questions/168590/getting-extent-in-openlayers-3
@@ -217,11 +231,11 @@ export class MapPage {
   obtenerRecursos(ubicacion: number[], coordenadasRec: number[][]): void {
     if (this.selMobike) this.getMobike(ubicacion);
 
-    if (this.selMuving) this.getMuving();
+    if (this.selMuving) this.getMuving(coordenadasRec);
 
-    if (this.selTier) this.getTier();
+    if (this.selTier) this.getTier(coordenadasRec);
 
-    if (this.selVoi) this.getVoi();
+    if (this.selVoi) this.getVoi(ubicacion);
   }
 
   mostrarToast(): void {

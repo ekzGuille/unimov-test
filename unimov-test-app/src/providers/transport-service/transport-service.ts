@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MuvingResponse } from '../../models/muving/muvingResponse';
 import { Observable } from 'rxjs/Observable';
@@ -27,8 +27,10 @@ export class TransportServiceProvider {
   }
 
   getMobike(coordsLocation: number[]): Observable<MobikeResponse> {
-    let lat = coordsLocation[1];
-    let lon = coordsLocation[0];
+    console.log(coordsLocation);
+    
+    let lat = coordsLocation[0];
+    let lon = coordsLocation[1];
 
     const body = {
       latitude : lat,
@@ -37,9 +39,8 @@ export class TransportServiceProvider {
     const options = {
       headers: new HttpHeaders({
         "platform": "1",
-        "Content-Type": "application/x-www-form-urlencoded",
         // "User-Agent": "Mozilla/63.0",
-        "Access-Control-Allow-Origin" : "*"
+        "Content-Type": "application/x-www-form-urlencoded"
       })
     };
     return this.http.post<MobikeResponse>(this.MOBIKE_API,body,options);
