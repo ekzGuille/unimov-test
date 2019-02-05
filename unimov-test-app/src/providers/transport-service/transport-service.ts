@@ -37,7 +37,7 @@ export class TransportServiceProvider {
     const options = {
       headers: new HttpHeaders({
         "platform": "1",
-        // "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type": "application/x-www-form-urlencoded",
         // "User-Agent": "Mozilla/63.0",
         "Access-Control-Allow-Origin" : "*"
       })
