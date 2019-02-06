@@ -119,11 +119,10 @@ def getLimes(coords, listaFinal = []):
 ##----------Mobike--------------------
 def getMobikes(coords, listaFinal = []):
 	c_lat,c_lon = coords['centerCoords']
-	header = {'content-type': 'application/x-www-form-urlencoded'}
+	header = {'content-type': 'application/x-www-form-urlencoded', 'platform': 1}
 	datos = {'latitude': c_lat, 'longitude': c_lon}
-	url1 = 'https://mwx.mobike.com/mobike-api/rent/nearbyBikesInfo.do'
-	url2 = 'https://app.mobike.com/api/nearby/v4/nearbyBikeInfo'
-	d = requests.post(url2, data=datos, headers=header)
+	url = 'https://app.mobike.com/api/nearby/v4/nearbyBikeInfo'
+	d = requests.post(url, data=datos, headers=header)
 	data = d.text
 	l_mobike = json.loads(data)
 	print(l_mobike)
@@ -157,6 +156,31 @@ def getVois(coords, listaFinal = []):
 			listaFinal.append(elem)
 	return listaFinal
 
+
+##----------ERG--------------------
+def getErgs(coords, listaFinal = []):
+	c_lat,c_lon = coords['centerCoords']
+	rdatos = {'latitude':c_lat,'longitude':c_lon, 'agent':'E-cycling', 'kind':2}
+	r = requests.get('http://gbike-api.gonbike.com.cn/bikes', data=rdatos)
+	l_erg = json.loads(r.text)
+	for patin in l_erg:
+		elem = {'serv': 'ERG','id': patin['id'], 'lat': patin['location'][0], 'lon': patin['location'][1], 'ca':  patin['battery'], 'info': '', 'url': 'https://itunes.apple.com/es/app/voi-ride-the-future/id1395921017?mt=8'}
+		if not elem in listaFinal:
+			listaFinal.append(elem)
+	return listaFinal
+
+##-----------UFO-------------------
+def getUfos(coords, listaFinal = []):
+	lat2, lon2, lat1, lon1 = coords['mapBounds']
+	rdatos = {'lat1':lat1,'lat12':lat2,'lon1':lon1,'lon1':lon1}
+	r = requests.get('https://ufo.frontend.fleetbird.eu/api/prod/v1.06/map/cars/', data=rdatos)
+	l_ufo = json.loads(r.text)
+	for patin in l_ufo:
+		elem = {'serv': 'TIER','id': patin['carId'], 'lat': patin['lat'], 'lon': patin['lon'], 'ca':  patin['fuelLevel'], 'info': 'Licencia: %s' %patin['licencePlate'], 'url': 'https://itunes.apple.com/es/app/tier/id1436140272?l=en&mt=8'}
+		if not elem in listaFinal:
+			listaFinal.append(elem)
+	return listaFinal
+
 if __name__ == '__main__':
 	## Zaragoza coords
 	lat = str(41.6480576)
@@ -165,7 +189,9 @@ if __name__ == '__main__':
 	coordsData = {'centerCoords': [lat, lon], 'userCoords': [lat, lon], 'mapBounds': ['41.6582','-0.8584', '41.6462', '-0.9407']}
 	print(getMuvings(coordsData))
 	print(getLimes(coordsData))
-	#print(getMobikes(coordsData)) No funciona como debe
+	print(getMobikes(coordsData))
 	print(getTiers(coordsData))
 	print(getVois(coordsData))
+	print(getErgs(coordsData))
+	print(getUfos(coordsData))
 
