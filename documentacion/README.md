@@ -1,4 +1,4 @@
-- Muving:
+# Muving:
 Peticion GET a esta direccion:
 https://nube000.muving.com/RestAPI/RestServices/vehicles/in_rectangle
 
@@ -44,16 +44,17 @@ Json
 		<prototype>: Object { … }
 
 
-- Koko:
+# Koko:
 Utiliza AWS Cognito lo cual hace muy dificil obtener el header para la llamada a la API:
 Vease documentación específica.
-- Lime:
+
+# Lime:
 https://github.com/ubahnverleih/WoBike/blob/master/Lime.md
 
-- Mobike: ACTUALMENTE LA API HA CAMBIADO Y YA NO DA RESPUESTA
+# Mobike:
 https://github.com/ubahnverleih/WoBike/blob/master/Mobike.md
 
-- Tier:
+# Tier:
 Peticion GET a esta direccion:
 https://tier.frontend.fleetbird.eu/api/prod/v1.06/map/cars
 
@@ -101,7 +102,7 @@ respuesta:
         "locationId": 6
     },
 
-VOI:
+# VOI:
 Peticion GET a esta direccion:
 https://api.voiapp.io/v1/vehicle/status/ready
 
@@ -147,5 +148,8 @@ Respuesta:
 
 VOI lista tambien los patinetes que estan siendo usados lo cual hay que filtrar para tener solo los aparcados  "locked"
 
+# ERG (Bicis azules electricas):
+Peticion GET: http://gbike-api.gonbike.com.cn/bikes
+Data: agent=E-cycling&kind=2&latitude=41.66021999999999&longitude=-0.8973933333333333
 
 Tanto VOI como TIER listan los scooters de todo el mundo, eso hace que haya una cantidad ingente de vehiculos en el mapa, quiza es bueno filtrar.
