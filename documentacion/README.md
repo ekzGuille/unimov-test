@@ -65,7 +65,7 @@ lat2; lon2 -> esquina superior drch del mapa
 
 OJO QUE VAN AL REVES DE MUVING
 
-respuesta:
+Respuesta:
 [
     {
         "carId": 10329,
@@ -152,4 +152,54 @@ VOI lista tambien los patinetes que estan siendo usados lo cual hay que filtrar 
 Peticion GET: http://gbike-api.gonbike.com.cn/bikes
 Data: agent=E-cycling&kind=2&latitude=41.66021999999999&longitude=-0.8973933333333333
 
+Respuesta:
+{
+    "data": {
+        "count": 64,
+        "items": [
+            {
+                "code": "1230000022",
+                "latitude": 41.660219999999988,
+                "longitude": -0.89739333333333327,
+                "powerBattery": 39,
+                "isLocked": true,
+                "kind": 2,
+                "key": "7c80830ea8124465b505f7800dce8708",
+                "lockCode": "2450cd0858e42eef",
+                "color": "Red",
+                "colorIcon": "",
+                "name": "",
+                "icon": "",
+                "franchisee": "E-cycling",
+                "price": {
+                    "unitPrice": 0.8,
+                    "unitInterval": 600
+                },
+                "electricKind": "Half"
+            },
+	    
+# UFO:
+Peticion GET: https://ufo.frontend.fleetbird.eu/api/prod/v1.06/map/cars/
+Data: lat1=28.898125&lat2=50.662006&lon1=-10.344377&lon2=4.016251
+respuesta:
+[
+    {
+        "carId": 10329,
+        "title": "",
+        "lat": 41.650201,
+        "lon": -0.888698,
+        "licencePlate": "10329",
+        "fuelLevel": 64,
+        "vehicleStateId": 0,
+        "vehicleTypeId": 6,
+        "pricingTime": "0.15€/min",
+        "pricingParking": "1€ to unlock",
+        "reservationState": 0,
+        "address": "Paseo María Agustín 9",
+        "zipCode": "50004",
+        "city": "Zaragoza",
+        "locationId": 6
+    },
+    {
+    
 Tanto VOI como TIER listan los scooters de todo el mundo, eso hace que haya una cantidad ingente de vehiculos en el mapa, quiza es bueno filtrar.
