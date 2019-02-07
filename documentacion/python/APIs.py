@@ -163,8 +163,8 @@ def getErgs(coords, listaFinal = []):
 	rdatos = {'latitude':c_lat,'longitude':c_lon, 'agent':'E-cycling', 'kind':2}
 	r = requests.get('http://gbike-api.gonbike.com.cn/bikes', data=rdatos)
 	l_erg = json.loads(r.text)
-	for patin in l_erg:
-		elem = {'serv': 'ERG','id': patin['id'], 'lat': patin['location'][0], 'lon': patin['location'][1], 'ca':  patin['battery'], 'info': '', 'url': 'https://itunes.apple.com/es/app/voi-ride-the-future/id1395921017?mt=8'}
+	for patin in l_erg['data']['items']:
+		elem = {'serv': 'ERG','id': patin['code'], 'lat': patin['latitude'], 'lon': patin['longitude'], 'ca':  patin['powerBattery'], 'info': '', 'url': ''}
 		if not elem in listaFinal:
 			listaFinal.append(elem)
 	return listaFinal
@@ -176,7 +176,7 @@ def getUfos(coords, listaFinal = []):
 	r = requests.get('https://ufo.frontend.fleetbird.eu/api/prod/v1.06/map/cars/', data=rdatos)
 	l_ufo = json.loads(r.text)
 	for patin in l_ufo:
-		elem = {'serv': 'TIER','id': patin['carId'], 'lat': patin['lat'], 'lon': patin['lon'], 'ca':  patin['fuelLevel'], 'info': 'Licencia: %s' %patin['licencePlate'], 'url': 'https://itunes.apple.com/es/app/tier/id1436140272?l=en&mt=8'}
+		elem = {'serv': 'UFO','id': patin['carId'], 'lat': patin['lat'], 'lon': patin['lon'], 'ca':  patin['fuelLevel'], 'info': 'Licencia: %s' %patin['licencePlate'], 'url': ''}
 		if not elem in listaFinal:
 			listaFinal.append(elem)
 	return listaFinal
