@@ -18,6 +18,11 @@ import { TierResponse } from "../../models/tier/tierResponse";
 import { TierObject } from "../../models/tier/tierObject";
 import { VoiResponse } from "../../models/voi/voiResponse";
 import { VoiObject } from "../../models/voi/voiObject";
+import { UfoObject } from "../../models/ufo/ufoObject";
+import { UfoResponse } from "../../models/ufo/ufoResponse";
+import { ErgObject } from "../../models/erg/ergObject";
+import { ErgResponse } from "../../models/erg/ergResponse";
+
 import { MapCal } from "./mapCal";
 
 import { Location } from "../../models/location";
@@ -67,10 +72,20 @@ export class MapPage {
   voiResponse: VoiResponse;
   arrayVoi: VoiObject[];
 
-  featuresMobike: Feature[] = [];
-  featuresMuving: Feature[] = [];
-  featuresTier: Feature[] = [];
-  featuresVoi: Feature[] = [];
+  selUfo: boolean;
+  ufoResponse: UfoResponse;
+  arrayUfo: UfoObject[];
+
+  selErg: boolean;
+  ergResponse: ErgResponse;
+  arrayErg: ErgObject[];
+
+  featuresMobike: Feature[];
+  featuresMuving: Feature[];
+  featuresTier: Feature[];
+  featuresVoi: Feature[];
+  featuresUfo: Feature[];
+  featuresErg: Feature[];
 
   featuresMapa: Feature[];
 
@@ -106,10 +121,19 @@ export class MapPage {
   ubicacionLatLon: number[];
 
   ngOnInit() {
+    this.featuresMobike = [];
+    this.featuresMuving = [];
+    this.featuresTier = [];
+    this.featuresVoi = [];
+    this.featuresUfo = [];
+    this.featuresErg = [];
+
     this.selMobike = false;
     this.selMuving = false;
     this.selTier = false;
     this.selVoi = true;
+    this.selUfo = false;
+    this.selErg = false;
 
     this.mapUtil = new MapCal();
 
@@ -196,6 +220,18 @@ export class MapPage {
       .subscribe(res => console.log(res));
   }
 
+  getErg(ubicacion: number[]):void{
+    this.transportServiceProvider
+    .getErg(ubicacion)
+    .subscribe(res => console.log(res));
+  }
+
+  getUfo(coordenadasRec: number[][]): void{
+    this.transportServiceProvider
+    .getUfo(coordenadasRec)
+    .subscribe(res => console.log(res));
+  }
+
   //Coordenadas de la vista actual
   //https://gis.stackexchange.com/questions/168590/getting-extent-in-openlayers-3
 
@@ -236,6 +272,10 @@ export class MapPage {
     if (this.selTier) this.getTier(coordenadasRec);
 
     if (this.selVoi) this.getVoi(ubicacion);
+
+    if(this.selUfo) this.getUfo(coordenadasRec);
+
+    if(this.selErg) this.getErg(ubicacion);
   }
 
   mostrarToast(): void {

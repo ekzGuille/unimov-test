@@ -52,13 +52,13 @@ $ ionic serve
 ## Servicios soportados:
 
 * [x] Muving (No requiere autentificación de usuario)
-* [ ] Koko (AWS Cognito)
-* [ ] Lime (Requiere autentificación por nº teléfono, lo cambiaran definitivamente?! Nunca lo sabremos..)
+* [ ] Koko (AWS Cognito, sin respuesta por parte de su servicio técnico)
+* [ ] Lime (Requiere autentificación por nº teléfono)
 * [x] Mobike (No requiere autentificación de usuario)
 * [x] Tier (No requiere autentificación de usuario)
 * [x] VOI (No requiere autentificación de usuario)
-* [x] UFO (Pendiente incrustar en Ionic)
-* [x] ERG - Electric Renting Group - Empresa de bicicletas eléctricas de Zaragoza (Pendiente incrustar en Ionic)
+* [x] UFO (No requiere autentificación de usuario)
+* [x] ERG - Electric Renting Group - Empresa de bicicletas eléctricas de Zaragoza (No requiere autentificación de usuario)
 
 
 ### Enlaces de interés

@@ -6,6 +6,7 @@ import { TierResponse } from '../../models/tier/tierResponse';
 import { VoiResponse } from '../../models/voi/voiResponse';
 import { MobikeResponse } from '../../models/mobike/mobikeResponse';
 import { UfoResponse } from '../../models/ufo/ufoResponse';
+import { ErgResponse } from '../../models/erg/ergResponse';
 
 @Injectable()
 export class TransportServiceProvider {
@@ -15,7 +16,7 @@ export class TransportServiceProvider {
   private TIER_URL = 'https://tier.frontend.fleetbird.eu/api/prod/v1.06/map/cars';
   private VOI_URL = 'https://api.voiapp.io/v1/vehicle/status/ready';
   private ERG_URL = 'http://gbike-api.gonbike.com.cn/bikes'
-  private UFO_URL = 'https://ufo.frontend.fleetbird.eu/api/prod/v1.06/map/cars/'
+  private UFO_URL = 'https://ufo.frontend.fleetbird.eu/api/prod/v1.06/map/cars'
 
   constructor(public http: HttpClient) { }
 
