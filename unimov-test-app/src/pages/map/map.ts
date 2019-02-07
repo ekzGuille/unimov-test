@@ -220,16 +220,16 @@ export class MapPage {
       .subscribe(res => console.log(res));
   }
 
-  getErg(ubicacion: number[]):void{
+  getErg(ubicacion: number[]): void {
     this.transportServiceProvider
-    .getErg(ubicacion)
-    .subscribe(res => console.log(res));
+      .getErg(ubicacion)
+      .subscribe(res => console.log(res));
   }
 
-  getUfo(coordenadasRec: number[][]): void{
+  getUfo(coordenadasRec: number[][]): void {
     this.transportServiceProvider
-    .getUfo(coordenadasRec)
-    .subscribe(res => console.log(res));
+      .getUfo(coordenadasRec)
+      .subscribe(res => console.log(res));
   }
 
   //Coordenadas de la vista actual
@@ -273,9 +273,9 @@ export class MapPage {
 
     if (this.selVoi) this.getVoi(ubicacion);
 
-    if(this.selUfo) this.getUfo(coordenadasRec);
+    if (this.selUfo) this.getUfo(coordenadasRec);
 
-    if(this.selErg) this.getErg(ubicacion);
+    if (this.selErg) this.getErg(ubicacion);
   }
 
   mostrarToast(): void {

@@ -4,7 +4,6 @@ export class MuvingResponse {
   private _responseCode: string;
   private _object: MuvingObject[];
 
-
   constructor(responseCode: string, object: MuvingObject[]) {
     this._responseCode = responseCode;
     this._object = object;
@@ -41,5 +40,4 @@ export class MuvingResponse {
   public set object(value: MuvingObject[]) {
     this._object = value;
   }
-
 }

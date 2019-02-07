@@ -22,5 +22,4 @@ export class TierResponse {
   public set tierObject(value: TierObject[]) {
     this._tierObject = value;
   }
-
 }

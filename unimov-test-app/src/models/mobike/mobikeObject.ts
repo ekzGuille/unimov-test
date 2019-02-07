@@ -1,5 +1,4 @@
 export class MobikeObject {
-
   private _distId: string;
   private _distX: number;
   private _distY: number;
@@ -11,8 +10,18 @@ export class MobikeObject {
   private _boundary: string;
   private _operateType: number;
 
-
-  constructor(distId: string, distX: number, distY: number, distNum: number, distance: string, bikeIds: string, biketype: number, type: number, boundary: string, operateType: number) {
+  constructor(
+    distId: string,
+    distX: number,
+    distY: number,
+    distNum: number,
+    distance: string,
+    bikeIds: string,
+    biketype: number,
+    type: number,
+    boundary: string,
+    operateType: number
+  ) {
     this._distId = distId;
     this._distX = distX;
     this._distY = distY;
@@ -184,6 +193,4 @@ export class MobikeObject {
   public set operateType(value: number) {
     this._operateType = value;
   }
-
-
 }

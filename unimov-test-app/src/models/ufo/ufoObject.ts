@@ -15,8 +15,23 @@ export class UfoObject {
   private _city: string;
   private _locationId: number;
 
-
-  constructor(carId: number, title: string, lat: number, lon: number, licencePlate: string, fuelLevel: number, vehicleStateId: number, vehicleTypeId: number, pricingTime: string, pricingParking: string, reservationState: number, address: string, zipCode: string, city: string, locationId: number) {
+  constructor(
+    carId: number,
+    title: string,
+    lat: number,
+    lon: number,
+    licencePlate: string,
+    fuelLevel: number,
+    vehicleStateId: number,
+    vehicleTypeId: number,
+    pricingTime: string,
+    pricingParking: string,
+    reservationState: number,
+    address: string,
+    zipCode: string,
+    city: string,
+    locationId: number
+  ) {
     this._carId = carId;
     this._title = title;
     this._lat = lat;
@@ -273,5 +288,4 @@ export class UfoObject {
   public set locationId(value: number) {
     this._locationId = value;
   }
-
 }

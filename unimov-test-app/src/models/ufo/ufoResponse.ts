@@ -22,5 +22,4 @@ export class UfoResponse {
   public set UfoObject(value: UfoObject[]) {
     this._UfoObject = value;
   }
-
 }

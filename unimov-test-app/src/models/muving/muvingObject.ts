@@ -24,8 +24,32 @@ export class MuvingObject {
   private _damaged: boolean;
   private _requestRunning: boolean;
 
-
-  constructor(id: number, lat: number, lon: number, vehicleRegistration: string, charge: number, stateId: number, typeId: number, reservationStateId: number, address: string, zipCode: string, city: string, helmets: number, hardwareId: string, damageDescription: string, fuelCardPin: string, estimatedRange: number, isHelmetDetectionSupported: boolean, isClean: boolean, isDamaged: boolean, isRequestRunning: boolean, helmetDetectionSupported: boolean, clean: boolean, damaged: boolean, requestRunning: boolean) {
+  constructor(
+    id: number,
+    lat: number,
+    lon: number,
+    vehicleRegistration: string,
+    charge: number,
+    stateId: number,
+    typeId: number,
+    reservationStateId: number,
+    address: string,
+    zipCode: string,
+    city: string,
+    helmets: number,
+    hardwareId: string,
+    damageDescription: string,
+    fuelCardPin: string,
+    estimatedRange: number,
+    isHelmetDetectionSupported: boolean,
+    isClean: boolean,
+    isDamaged: boolean,
+    isRequestRunning: boolean,
+    helmetDetectionSupported: boolean,
+    clean: boolean,
+    damaged: boolean,
+    requestRunning: boolean
+  ) {
     this._id = id;
     this._lat = lat;
     this._lon = lon;
@@ -435,5 +459,4 @@ export class MuvingObject {
   public set requestRunning(value: boolean) {
     this._requestRunning = value;
   }
-
 }

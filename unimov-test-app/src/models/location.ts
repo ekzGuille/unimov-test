@@ -18,8 +18,26 @@ export class Location {
   private _asn: string;
   private _org: string;
 
-
-  constructor(ip: string, city: string, region: string, region_code: string, country: string, country_name: string, continent_code: string, in_eu: boolean, postal: string, latitude: number, longitude: number, timezone: string, utc_offset: string, country_calling_code: string, currency: string, languages: string, asn: string, org: string) {
+  constructor(
+    ip: string,
+    city: string,
+    region: string,
+    region_code: string,
+    country: string,
+    country_name: string,
+    continent_code: string,
+    in_eu: boolean,
+    postal: string,
+    latitude: number,
+    longitude: number,
+    timezone: string,
+    utc_offset: string,
+    country_calling_code: string,
+    currency: string,
+    languages: string,
+    asn: string,
+    org: string
+  ) {
     this._ip = ip;
     this._city = city;
     this._region = region;
@@ -327,5 +345,4 @@ export class Location {
   public set org(value: string) {
     this._org = value;
   }
-
 }

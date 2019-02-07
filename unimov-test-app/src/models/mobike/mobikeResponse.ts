@@ -10,7 +10,16 @@ export class MobikeResponse {
   private _autoZoom: boolean;
   private _hasRedPacket: number;
 
-  constructor(code: number, message: string, bike: MobikeObject[], mpl: string[], biketype: number, radius: number, autoZoom: boolean, hasRedPacket: number) {
+  constructor(
+    code: number,
+    message: string,
+    bike: MobikeObject[],
+    mpl: string[],
+    biketype: number,
+    radius: number,
+    autoZoom: boolean,
+    hasRedPacket: number
+  ) {
     this._code = code;
     this._message = message;
     this._bike = bike;
@@ -148,5 +157,4 @@ export class MobikeResponse {
   public set hasRedPacket(value: number) {
     this._hasRedPacket = value;
   }
-
 }
