@@ -126,7 +126,7 @@ def getMobikes(coords, listaFinal = []):
 	data = d.text
 	l_mobike = json.loads(data)
 	print(l_mobike)
-	for bicis in l_mobike['object']:
+	for bicis in l_mobike['bike']:
 		elem = {'serv': 'Mobike', 'id': bicis['bikeIds'], 'lat': bicis['distY'], 'lon': bicis['distX'], 'ca': -1, 'info': 'No additional info', 'url': 'mobike://'}
 		if not elem in listaFinal:
 			listaFinal.append(elem)
@@ -135,7 +135,7 @@ def getMobikes(coords, listaFinal = []):
 ##----------TIER--------------------
 def getTiers(coords, listaFinal = []):
 	lat2, lon2, lat1, lon1 = coords['mapBounds']
-	rdatos = {'lat1':lat1,'lat12':lat2,'lon1':lon1,'lon1':lon1}
+	rdatos = {'lat1':lat1,'lat2':lat2,'lon1':lon1,'lon2':lon2}
 	r = requests.get('https://tier.frontend.fleetbird.eu/api/prod/v1.06/map/cars', data=rdatos)
 	l_tier = json.loads(r.text)
 	for patin in l_tier:
@@ -172,7 +172,7 @@ def getErgs(coords, listaFinal = []):
 ##-----------UFO-------------------
 def getUfos(coords, listaFinal = []):
 	lat2, lon2, lat1, lon1 = coords['mapBounds']
-	rdatos = {'lat1':lat1,'lat12':lat2,'lon1':lon1,'lon1':lon1}
+	rdatos = {'lat1':lat1,'lat2':lat2,'lon1':lon1,'lon2':lon2}
 	r = requests.get('https://ufo.frontend.fleetbird.eu/api/prod/v1.06/map/cars/', data=rdatos)
 	l_ufo = json.loads(r.text)
 	for patin in l_ufo:
