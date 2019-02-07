@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { TierResponse } from '../../models/tier/tierResponse';
 import { VoiResponse } from '../../models/voi/voiResponse';
 import { MobikeResponse } from '../../models/mobike/mobikeResponse';
+import { UfoResponse } from '../../models/ufo/ufoResponse';
 
 @Injectable()
 export class TransportServiceProvider {
@@ -13,6 +14,8 @@ export class TransportServiceProvider {
   private MOBIKE_API = 'http://app.mobike.com/api/nearby/v4/nearbyBikeInfo';
   private TIER_URL = 'https://tier.frontend.fleetbird.eu/api/prod/v1.06/map/cars';
   private VOI_URL = 'https://api.voiapp.io/v1/vehicle/status/ready';
+  private ERG_URL = 'http://gbike-api.gonbike.com.cn/bikes'
+  private UFO_URL = 'https://ufo.frontend.fleetbird.eu/api/prod/v1.06/map/cars/'
 
   constructor(public http: HttpClient) { }
 
@@ -63,6 +66,24 @@ export class TransportServiceProvider {
 
     const params = `?la=${lat}&lo=${lon}`;
     return this.http.get<VoiResponse>(this.VOI_URL + params);
+  }
+
+  getErg(coordsLocation: number[]): Observable<ErgResponse> {
+    let lat = coordsLocation[0];
+    let lon = coordsLocation[1];
+
+    const params = `?latitude=${lat}&longitude=${lon}&agent=E-cycling&kind=2`;
+    return this.http.get<ErgResponse>(this.ERG_URL + params);
+  }
+
+  getUfo(coordsRectangle: number[][]): Observable<UfoResponse> {
+    const lat1 = coordsRectangle[0][0];
+    const lon1 = coordsRectangle[0][1];
+    const lat2 = coordsRectangle[1][0];
+    const lon2 = coordsRectangle[1][1];
+
+    const params = `?lat1=${lat1}&lon1=${lon1}&lat2=${lat2}&lon2=${lon2}`;
+    return this.http.get<UfoResponse>(this.UFO_URL + params);
   }
 
 }
