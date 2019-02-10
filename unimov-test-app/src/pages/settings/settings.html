@@ -1,12 +1,51 @@
 <ion-header>
-
   <ion-navbar>
     <ion-title>Settings</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
-  Your settings
+  <ion-list>
+    <h4>Selecciona qué servicios quieres ver:</h4>
+    <ion-item>
+      <ion-label><ion-img [src]="'assets/transport/muving.png'"></ion-img>Muving</ion-label>
+      <ion-toggle [(ngModel)]="muving"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-label><ion-img [src]="'assets/transport/mobike.png'"></ion-img>Mobike</ion-label>
+      <ion-toggle [(ngModel)]="mobike"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-label><ion-img [src]="'assets/transport/tier.png'"></ion-img>Tier</ion-label>
+      <ion-toggle [(ngModel)]="tier"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-label><ion-img [src]="'assets/transport/voi.png'"></ion-img>VOI</ion-label>
+      <ion-toggle [(ngModel)]="voi"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-label><ion-img [src]="'assets/transport/ufo1.png'"></ion-img>UFO</ion-label>
+      <ion-toggle [(ngModel)]="ufo"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-label><ion-img [src]="'assets/transport/erg1.png'"></ion-img>ERG</ion-label>
+      <ion-toggle [(ngModel)]="erg"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-label><ion-img [src]="'assets/transport/lime.png'"></ion-img>Lime</ion-label>
+      <ion-toggle disabled [(ngModel)]="lime"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-label><ion-img [src]="'assets/transport/koko.png'"></ion-img>Koko</ion-label>
+      <ion-toggle disabled [(ngModel)]="koko"></ion-toggle>
+    </ion-item>
+
+  </ion-list>
 </ion-content>

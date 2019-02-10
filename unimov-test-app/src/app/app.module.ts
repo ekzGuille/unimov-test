@@ -14,6 +14,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { TransportServiceProvider } from '../providers/transport-service/transport-service';
 import { HttpClientModule } from '@angular/common/http';
+import { UserSettingsProvider } from '../providers/user-settings/user-settings';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { HttpClientModule } from '@angular/common/http';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     TransportServiceProvider,
-    Geolocation
+    Geolocation,
+    UserSettingsProvider
   ]
 })
 export class AppModule {}

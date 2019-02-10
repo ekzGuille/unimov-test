@@ -99,6 +99,10 @@ export class MapPage {
   iconoMuving2: string;
   iconoVoi: string;
   iconoTier: string;
+  iconoUfo1: string;
+  iconoUfo2: string;
+  iconoErg1: string;
+  iconoErg2: string;
 
   iconoUbicacion: string;
   iconoAnimadoUbicacion: string;
@@ -165,16 +169,34 @@ export class MapPage {
     // this.iconoCasa = 'https://cdn1.iconfinder.com/data/icons/real-estate-set-1-3/64/real-estate_1-10-512.png';
 
     //Services icons
-    this.iconoKoko = "https://i.imgur.com/3RWKl3T.png";
-    this.iconoLime1 = "https://i.imgur.com/JwxvwNB.png";
-    this.iconoLime2 = "https://i.imgur.com/i52ia57.png";
-    this.iconoLime3 = "https://i.imgur.com/QiLhsNm.png";
-    this.iconoMobike1 = "https://i.imgur.com/M38oXRm.png";
-    this.iconoMobike2 = "https://i.imgur.com/G0DCXFS.png";
-    this.iconoMuving1 = "https://i.imgur.com/CyXXWjI.png";
-    this.iconoMuving2 = "https://i.imgur.com/c0TDKRc.png";
-    this.iconoVoi = "https://i.imgur.com/IiEd9iB.png";
-    this.iconoTier = "https://i.imgur.com/PeQHAcq.png";
+    this.iconoKoko = "assets/transport/koko.png";
+    this.iconoLime1 = "assets/transport/lime.png";
+    this.iconoLime2 = "assets/transport/lime2.png";
+    this.iconoLime3 = "assets/transport/lime_g.png";
+    this.iconoMobike1 = "assets/transport/mobike.png";
+    this.iconoMobike2 = "assets/transport/mobike2.png";
+    this.iconoMuving1 = "assets/transport/muving.png";
+    this.iconoMuving2 = "assets/transport/muving2.png";
+    this.iconoVoi = "assets/transport/voi.png";
+    this.iconoTier = "assets/transport/tier.png";
+    this.iconoUfo1 = "assets/transport/ufo1.png";
+    this.iconoUfo2 = "assets/transport/ufo2.png";
+    this.iconoErg1 = "assets/transport/erg1.png";
+    this.iconoErg2 = "assets/transport/erg2.png";
+    // this.iconoKoko = "https://i.imgur.com/3RWKl3T.png";
+    // this.iconoLime1 = "https://i.imgur.com/JwxvwNB.png";
+    // this.iconoLime2 = "https://i.imgur.com/i52ia57.png";
+    // this.iconoLime3 = "https://i.imgur.com/QiLhsNm.png";
+    // this.iconoMobike1 = "https://i.imgur.com/M38oXRm.png";
+    // this.iconoMobike2 = "https://i.imgur.com/G0DCXFS.png";
+    // this.iconoMuving1 = "https://i.imgur.com/CyXXWjI.png";
+    // this.iconoMuving2 = "https://i.imgur.com/c0TDKRc.png";
+    // this.iconoVoi = "https://i.imgur.com/IiEd9iB.png";
+    // this.iconoTier = "https://i.imgur.com/PeQHAcq.png";
+    // this.iconoUfo1 = "https://i.imgur.com/Egzv6rM.png";
+    // this.iconoUfo2 = "https://i.imgur.com/lCt3clS.png";
+    // this.iconoErg1 = "https://i.imgur.com/xfUJ0Va.png";
+    // this.iconoErg2 = "https://i.imgur.com/KLRUxZ7.png";
 
     this.map = new Map({
       target: "map",
@@ -249,7 +271,7 @@ export class MapPage {
     //Coordenadas menor indice 0
     this.mapExtentLonLatCoords[0] = transform(extentXYCoords[1], "EPSG:3857", "EPSG:4326");
     this.mapExtentLonLatCoords[1] = transform(extentXYCoords[0], "EPSG:3857", "EPSG:4326");
-    
+
     this.mapExtentLatLonCoords[0] = [this.mapExtentLonLatCoords[0][1],this.mapExtentLonLatCoords[0][0]];
     this.mapExtentLatLonCoords[1] = [this.mapExtentLonLatCoords[1][1],this.mapExtentLonLatCoords[1][0]];
   }
