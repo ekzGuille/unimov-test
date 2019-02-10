@@ -116,7 +116,8 @@ export class MapPage {
 
   mapUtil: MapCal;
 
-  coordenadasExtent: number[][];
+  mapExtentLonLatCoords: number[][];
+  mapExtentLatLonCoords: number[][];
   ubicacionLonLat: number[];
   ubicacionLatLon: number[];
 
@@ -129,9 +130,9 @@ export class MapPage {
     this.featuresErg = [];
 
     this.selMobike = false;
-    this.selMuving = false;
+    this.selMuving = true;
     this.selTier = false;
-    this.selVoi = true;
+    this.selVoi = false;
     this.selUfo = false;
     this.selErg = false;
 
@@ -144,7 +145,8 @@ export class MapPage {
 
     this.ubicacionLonLat = [];
     this.ubicacionLatLon = [];
-    this.coordenadasExtent = [];
+    this.mapExtentLonLatCoords = [];
+    this.mapExtentLatLonCoords = [];
     this.zoom = 13;
 
     //Default pointer position
@@ -232,14 +234,25 @@ export class MapPage {
       .subscribe(res => console.log(res));
   }
 
-  //Coordenadas de la vista actual
-  //https://gis.stackexchange.com/questions/168590/getting-extent-in-openlayers-3
-
   //Utils
 
   getUserLocation(): void {}
 
-  getMapExtentCoords(): void {}
+  getMapExtentCoords(): void {
+    let extentXYCoords: number[][] = [];
+    let _extCoords = this.map.getView().calculateExtent();
+    extentXYCoords = [
+      [_extCoords[0], _extCoords[1]],
+      [_extCoords[2], _extCoords[3]],
+    ];
+
+    //Coordenadas menor indice 0
+    this.mapExtentLonLatCoords[0] = transform(extentXYCoords[1], "EPSG:3857", "EPSG:4326");
+    this.mapExtentLonLatCoords[1] = transform(extentXYCoords[0], "EPSG:3857", "EPSG:4326");
+    
+    this.mapExtentLatLonCoords[0] = [this.mapExtentLonLatCoords[0][1],this.mapExtentLonLatCoords[0][0]];
+    this.mapExtentLatLonCoords[1] = [this.mapExtentLonLatCoords[1][1],this.mapExtentLonLatCoords[1][0]];
+  }
 
   localizarUsuario(): void {
     if (this.ubicacionLonLat.length === 0 || this.ubicacionLatLon.length) {
@@ -251,7 +264,8 @@ export class MapPage {
         this.ubicacionLonLat = [res.coords.longitude, res.coords.latitude];
         this.ubicacionLatLon = [res.coords.latitude, res.coords.longitude];
         this.actualizarMapa();
-        this.obtenerRecursos(this.ubicacionLatLon, []);
+        this.getMapExtentCoords();
+        this.obtenerRecursos(this.ubicacionLatLon, this.mapExtentLatLonCoords);
       })
       .catch(error => {
         //Localizar por IP
@@ -259,7 +273,8 @@ export class MapPage {
           this.ubicacionLonLat = [res.longitude, res.latitude];
           this.ubicacionLatLon = [res.latitude, res.longitude];
           this.actualizarMapa();
-          this.obtenerRecursos(this.ubicacionLatLon, []);
+          this.getMapExtentCoords();
+          this.obtenerRecursos(this.ubicacionLatLon, this.mapExtentLatLonCoords);
         });
       });
   }
