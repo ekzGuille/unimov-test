@@ -40,6 +40,8 @@ import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
 import Icon from "ol/style/Icon";
 import Style from "ol/style/Style";
+import { UserSettingsProvider } from "../../providers/user-settings/user-settings";
+import { UserPreferences } from "../../models/user-preferences";
 
 @IonicPage()
 @Component({
@@ -53,30 +55,27 @@ export class MapPage {
     public http: HttpClient,
     private geolocation: Geolocation,
     public toastCtrl: ToastController,
-    public transportServiceProvider: TransportServiceProvider
+    public transportServiceProvider: TransportServiceProvider,
+    public userSettingsProvider: UserSettingsProvider
   ) {}
 
-  selMobike: boolean;
+  userPref: UserPreferences;
+
   mobikeResponse: MobikeResponse;
   arrayMobike: MobikeObject[];
 
-  selMuving: boolean;
   muvingResposne: MuvingResponse;
   arrayMuving: MuvingObject[];
 
-  selTier: boolean;
   tierResponse: TierResponse;
   arrayTier: TierObject[];
 
-  selVoi: boolean;
   voiResponse: VoiResponse;
   arrayVoi: VoiObject[];
 
-  selUfo: boolean;
   ufoResponse: UfoResponse;
   arrayUfo: UfoObject[];
 
-  selErg: boolean;
   ergResponse: ErgResponse;
   arrayErg: ErgObject[];
 
@@ -133,12 +132,7 @@ export class MapPage {
     this.featuresUfo = [];
     this.featuresErg = [];
 
-    this.selMobike = false;
-    this.selMuving = true;
-    this.selTier = false;
-    this.selVoi = false;
-    this.selUfo = false;
-    this.selErg = false;
+    this.userPref = this.userSettingsProvider.getUserPreferences();
 
     this.mapUtil = new MapCal();
 
@@ -183,6 +177,7 @@ export class MapPage {
     this.iconoUfo2 = "assets/transport/ufo2.png";
     this.iconoErg1 = "assets/transport/erg1.png";
     this.iconoErg2 = "assets/transport/erg2.png";
+
     // this.iconoKoko = "https://i.imgur.com/3RWKl3T.png";
     // this.iconoLime1 = "https://i.imgur.com/JwxvwNB.png";
     // this.iconoLime2 = "https://i.imgur.com/i52ia57.png";
@@ -215,6 +210,10 @@ export class MapPage {
       })
     });
 
+  }
+
+  ionViewWillEnter() {
+    this.userPref = this.userSettingsProvider.getUserPreferences();
     this.localizarUsuario();
   }
 
@@ -265,15 +264,29 @@ export class MapPage {
     let _extCoords = this.map.getView().calculateExtent();
     extentXYCoords = [
       [_extCoords[0], _extCoords[1]],
-      [_extCoords[2], _extCoords[3]],
+      [_extCoords[2], _extCoords[3]]
     ];
 
     //Coordenadas menor indice 0
-    this.mapExtentLonLatCoords[0] = transform(extentXYCoords[1], "EPSG:3857", "EPSG:4326");
-    this.mapExtentLonLatCoords[1] = transform(extentXYCoords[0], "EPSG:3857", "EPSG:4326");
+    this.mapExtentLonLatCoords[0] = transform(
+      extentXYCoords[1],
+      "EPSG:3857",
+      "EPSG:4326"
+    );
+    this.mapExtentLonLatCoords[1] = transform(
+      extentXYCoords[0],
+      "EPSG:3857",
+      "EPSG:4326"
+    );
 
-    this.mapExtentLatLonCoords[0] = [this.mapExtentLonLatCoords[0][1],this.mapExtentLonLatCoords[0][0]];
-    this.mapExtentLatLonCoords[1] = [this.mapExtentLonLatCoords[1][1],this.mapExtentLonLatCoords[1][0]];
+    this.mapExtentLatLonCoords[0] = [
+      this.mapExtentLonLatCoords[0][1],
+      this.mapExtentLonLatCoords[0][0]
+    ];
+    this.mapExtentLatLonCoords[1] = [
+      this.mapExtentLonLatCoords[1][1],
+      this.mapExtentLonLatCoords[1][0]
+    ];
   }
 
   localizarUsuario(): void {
@@ -296,23 +309,26 @@ export class MapPage {
           this.ubicacionLatLon = [res.latitude, res.longitude];
           this.actualizarMapa();
           this.getMapExtentCoords();
-          this.obtenerRecursos(this.ubicacionLatLon, this.mapExtentLatLonCoords);
+          this.obtenerRecursos(
+            this.ubicacionLatLon,
+            this.mapExtentLatLonCoords
+          );
         });
       });
   }
 
   obtenerRecursos(ubicacion: number[], coordenadasRec: number[][]): void {
-    if (this.selMobike) this.getMobike(ubicacion);
+    if (this.userPref.selMobike) this.getMobike(ubicacion);
 
-    if (this.selMuving) this.getMuving(coordenadasRec);
+    if (this.userPref.selMuving) this.getMuving(coordenadasRec);
 
-    if (this.selTier) this.getTier(coordenadasRec);
+    if (this.userPref.selTier) this.getTier(coordenadasRec);
 
-    if (this.selVoi) this.getVoi(ubicacion);
+    if (this.userPref.selVoi) this.getVoi(ubicacion);
 
-    if (this.selUfo) this.getUfo(coordenadasRec);
+    if (this.userPref.selUfo) this.getUfo(coordenadasRec);
 
-    if (this.selErg) this.getErg(ubicacion);
+    if (this.userPref.selErg) this.getErg(ubicacion);
   }
 
   mostrarToast(): void {

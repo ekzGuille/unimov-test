@@ -1,8 +1,15 @@
 page-settings {
-  ion-img {
-    margin-right: 10px;
-  }
-  ion-label {
-    font-size: 1.2em;
-  }
+}
+ion-img {
+  margin-right: 10px;
+}
+ion-label {
+  font-size: 1.2em;
+}
+#btnGuardar {
+  font-size: 1.1em;
+  margin: 0 auto;
+  background-color: #bdbdbd;
+  color: #000;
+  border-radius: 10px;
 }

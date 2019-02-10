@@ -7,34 +7,44 @@
 <ion-content padding>
   <ion-list>
     <h4>Selecciona qué servicios quieres ver:</h4>
+    <ion-grid>
+      <ion-row>
+        <ion-col></ion-col>
+        <ion-col></ion-col>
+        <ion-col></ion-col>
+        <ion-col>
+          <button id="btnGuardar" ion-button (click)="guardarAjustes()">Guardar</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
     <ion-item>
       <ion-label><ion-img [src]="'assets/transport/muving.png'"></ion-img>Muving</ion-label>
-      <ion-toggle [(ngModel)]="muving"></ion-toggle>
+      <ion-toggle [(ngModel)]="userPref.selMuving"></ion-toggle>
     </ion-item>
 
     <ion-item>
       <ion-label><ion-img [src]="'assets/transport/mobike.png'"></ion-img>Mobike</ion-label>
-      <ion-toggle [(ngModel)]="mobike"></ion-toggle>
+      <ion-toggle [(ngModel)]="userPref.selMobike"></ion-toggle>
     </ion-item>
 
     <ion-item>
       <ion-label><ion-img [src]="'assets/transport/tier.png'"></ion-img>Tier</ion-label>
-      <ion-toggle [(ngModel)]="tier"></ion-toggle>
+      <ion-toggle [(ngModel)]="userPref.selTier"></ion-toggle>
     </ion-item>
 
     <ion-item>
       <ion-label><ion-img [src]="'assets/transport/voi.png'"></ion-img>VOI</ion-label>
-      <ion-toggle [(ngModel)]="voi"></ion-toggle>
+      <ion-toggle [(ngModel)]="userPref.selVoi"></ion-toggle>
     </ion-item>
 
     <ion-item>
       <ion-label><ion-img [src]="'assets/transport/ufo1.png'"></ion-img>UFO</ion-label>
-      <ion-toggle [(ngModel)]="ufo"></ion-toggle>
+      <ion-toggle [(ngModel)]="userPref.selUfo"></ion-toggle>
     </ion-item>
 
     <ion-item>
       <ion-label><ion-img [src]="'assets/transport/erg1.png'"></ion-img>ERG</ion-label>
-      <ion-toggle [(ngModel)]="erg"></ion-toggle>
+      <ion-toggle [(ngModel)]="userPref.selErg"></ion-toggle>
     </ion-item>
 
     <ion-item>
@@ -46,6 +56,6 @@
       <ion-label><ion-img [src]="'assets/transport/koko.png'"></ion-img>Koko</ion-label>
       <ion-toggle disabled [(ngModel)]="koko"></ion-toggle>
     </ion-item>
-
   </ion-list>
+
 </ion-content>
