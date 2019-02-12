@@ -45,6 +45,8 @@ $ ionic serve
   
 
 * Openlayers 5.3.0
+* @ionic-native/geolocation 4.18.0
+* @ionic-native/app-preferences 4.18.0
 
   
   

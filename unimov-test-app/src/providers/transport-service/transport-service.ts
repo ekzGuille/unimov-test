@@ -31,8 +31,6 @@ export class TransportServiceProvider {
   }
 
   getMobike(coordsLocation: number[]): Observable<MobikeResponse> {
-    console.log(coordsLocation);
-    
     let lat = coordsLocation[0];
     let lon = coordsLocation[1];
 

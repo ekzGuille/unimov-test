@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { Geolocation } from '@ionic-native/geolocation';
+import { AppPreferences } from "@ionic-native/app-preferences";
 
 import { MapPage } from '../pages/map/map';
 import { ProfilePage } from '../pages/profile/profile';
@@ -45,6 +46,7 @@ import { UserSettingsProvider } from '../providers/user-settings/user-settings';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     TransportServiceProvider,
     Geolocation,
+    AppPreferences,
     UserSettingsProvider
   ]
 })
